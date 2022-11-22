@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserRegisterController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../bg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="245.0" layoutY="57.0" text="Register">
+         <font>
+            <Font name="Sitka Text" size="26.0" />
+         </font>
+      </Label>
+      <Button layoutX="270.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnUserRegisterEnterClicked" prefHeight="26.0" prefWidth="59.0" text="Enter">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUserRegisterBackClicked" text="Back" />
+      <VBox layoutX="197.0" layoutY="108.0" prefHeight="184.0" prefWidth="205.0">
+         <children>
+            <TextField fx:id="registerUsername" promptText="Enter your name" />
+            <TextField fx:id="registerEmail" promptText="Enter email" />
+            <PasswordField fx:id="registerPassword" prefHeight="26.0" prefWidth="150.0" promptText="Enter password" />
+            <TextField fx:id="registerGeneralRank" prefHeight="26.0" prefWidth="150.0" promptText="Enter your general rank" />
+            <TextField fx:id="registerCategoryRank" prefHeight="26.0" prefWidth="150.0" promptText="Enter your category rank" />
+            <ComboBox fx:id="comboboxGender" prefHeight="26.0" prefWidth="279.0" promptText="Select Gender" />
+            <ComboBox fx:id="comboboxCategory" prefHeight="26.0" prefWidth="219.0" promptText="Select category" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

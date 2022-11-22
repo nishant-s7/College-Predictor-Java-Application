@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IncognitoPageController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../bg.jpg" />
+         </image>
+      </ImageView>
+      <VBox layoutX="134.0" layoutY="124.0" prefHeight="181.0" prefWidth="330.0">
+         <children>
+            <ComboBox fx:id="comboboxRound" prefHeight="26.0" prefWidth="334.0" promptText="Select round" />
+            <ComboBox fx:id="comboboxGender" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="350.0" promptText="Select gender" />
+            <ComboBox fx:id="comboboxInstitute" layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="402.0" promptText="Select institute" />
+            <ComboBox fx:id="comboboxBranch" layoutX="10.0" layoutY="63.0" prefHeight="26.0" prefWidth="460.0" promptText="Select branch" />
+            <ComboBox fx:id="comboboxCategory" layoutX="10.0" layoutY="89.0" prefHeight="26.0" prefWidth="382.0" promptText="Select category" />
+            <TextField fx:id="tfCategoryRank" promptText="Enter category rank" />
+         </children>
+      </VBox>
+      <Button layoutX="251.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnGoClicked" prefHeight="26.0" prefWidth="96.0" text="Go" />
+      <Label layoutX="186.0" layoutY="73.0" text="Enter your preferences">
+         <font>
+            <Font name="Sitka Text" size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnBackClicked" text="Back" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminUserListController">
+   <children>
+      <TableView fx:id="tableView" layoutX="200.0" layoutY="86.0" prefHeight="373.0" prefWidth="600.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="columnUsername" prefWidth="97.60003662109375" text="Username" />
+          <TableColumn fx:id="columnEmail" prefWidth="128.0" text="Email" />
+            <TableColumn fx:id="columnCategory" prefWidth="84.79998779296875" text="Category" />
+            <TableColumn fx:id="columnGender" prefWidth="87.99993896484375" text="Gender" />
+            <TableColumn fx:id="columnGeneralRank" prefWidth="96.800048828125" text="General Rank" />
+            <TableColumn fx:id="columnCategoryRank" prefWidth="104.00006103515625" text="Category Rank" />
+        </columns>
+      </TableView>
+      <Button layoutX="304.0" layoutY="373.0" mnemonicParsing="false" onMouseClicked="#btnRemoveUserClicked" prefHeight="26.0" prefWidth="295.0" text="Remove selected user" textFill="#d90202" />
+      <Button layoutY="373.0" mnemonicParsing="false" onAction="#btnBackClicked" prefHeight="26.0" prefWidth="303.0" text="Back" />
+   </children>
+</AnchorPane>

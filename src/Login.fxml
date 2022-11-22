@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserLoginController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../bg.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="172.0" layoutY="69.0" prefHeight="246.0" prefWidth="256.0">
+         <children>
+            <TextField fx:id="usernameEmailinput" layoutX="42.0" layoutY="93.0" prefHeight="28.0" prefWidth="171.0" promptText="Enter username/email" />
+            <Label layoutX="93.0" layoutY="50.0" prefHeight="28.0" prefWidth="69.0" text="Login">
+               <font>
+                  <Font name="Sitka Text" size="24.0" />
+               </font>
+            </Label>
+            <Button layoutX="42.0" layoutY="176.0" mnemonicParsing="false" onAction="#btnLoginSignInClicked" prefHeight="14.0" prefWidth="62.0" text="Sign in">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </Button>
+            <Hyperlink fx:id="hyperlinkRegister" layoutX="157.0" layoutY="177.0" onAction="#registerClicked" text="Register">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Hyperlink>
+            <PasswordField fx:id="passwordInput" layoutX="42.0" layoutY="131.0" prefHeight="28.0" prefWidth="171.0" promptText="Enter password" />
+            <Label fx:id="incorrectDetails" layoutX="42.0" layoutY="223.0" prefHeight="18.0" prefWidth="171.0" textFill="FIREBRICK" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLoginBackClicked" text="Back" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserEditDetailsController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../bg.jpg" />
+         </image>
+      </ImageView>
+      <VBox layoutX="187.0" layoutY="166.0" prefHeight="125.0" prefWidth="146.0">
+         <children>
+            <TextField fx:id="tfGender" promptText="Enter gender">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfEmail" layoutX="10.0" layoutY="10.0" promptText="Enter new email">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfGenRank" layoutX="10.0" layoutY="36.0" promptText="Enter new general rank">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfCatRank" layoutX="10.0" layoutY="61.0" promptText="Enter new category rank" />
+         </children>
+      </VBox>
+      <VBox layoutX="349.0" layoutY="165.0" prefHeight="126.0" prefWidth="62.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#btnChangeGenderClicked" prefHeight="26.0" prefWidth="63.0" text="Confirm">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnChangeEmailClicked" prefHeight="26.0" prefWidth="63.0" text="Confirm">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </Button>
+            <Button layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#btnChangeGenRankClicked" prefHeight="26.0" prefWidth="63.0" text="Confirm">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </Button>
+            <Button layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#btnChangeCatRankClicked" prefHeight="26.0" prefWidth="63.0" text="Confirm" />
+         </children>
+      </VBox>
+      <Label layoutX="220.0" layoutY="98.0" text="Enter Details">
+         <font>
+            <Font name="Sitka Text" size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMessage" alignment="CENTER" layoutX="158.0" layoutY="305.0" prefHeight="18.0" prefWidth="283.0" textAlignment="CENTER" textFill="#25b715" />
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnBackClicked" text="Back" />
+   </children>
+</AnchorPane>

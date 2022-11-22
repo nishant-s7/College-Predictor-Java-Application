@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstituteListController">
+   <children>
+      <ListView fx:id="listviewInstitute" layoutX="15.0" layoutY="31.0" prefHeight="342.0" prefWidth="570.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="31.0" />
+      <Label layoutX="243.0" text="Institute List">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="303.0" layoutY="373.0" mnemonicParsing="false" onMouseClicked="#btnRemoveInstituteClicked" prefHeight="26.0" prefWidth="281.0" text="Remove selected institute" textFill="#d90202" />
+      <Button layoutX="16.0" layoutY="373.0" mnemonicParsing="false" onAction="#btnBackClicked" prefHeight="26.0" prefWidth="287.0" text="Back" />
+   </children>
+</AnchorPane>

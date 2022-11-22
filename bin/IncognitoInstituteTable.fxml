@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IncognitoInstituteTableController">
+   <children>
+      <TableView fx:id="tableView" layoutX="118.0" layoutY="66.0" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="instituteColumn" prefWidth="142.39996337890625" text="Institute" />
+          <TableColumn fx:id="programColumn" prefWidth="130.4000244140625" text="Program" />
+            <TableColumn fx:id="genderColumn" prefWidth="56.7999267578125" text="Gender" />
+            <TableColumn fx:id="categoryColumn" prefWidth="58.4000244140625" text="Category" />
+            <TableColumn fx:id="quotaColumn" prefWidth="40.79998779296875" text="Quota" />
+            <TableColumn fx:id="openingRankColumn" prefWidth="84.79998779296875" text="Opening Rank" />
+            <TableColumn fx:id="closingRankColumn" prefWidth="78.40008544921875" text="Closing Rank" />
+        </columns>
+      </TableView>
+      <Button layoutY="375.0" mnemonicParsing="false" onAction="#btnBackClicked" prefHeight="0.0" prefWidth="600.0" text="Back" />
+   </children>
+</AnchorPane>

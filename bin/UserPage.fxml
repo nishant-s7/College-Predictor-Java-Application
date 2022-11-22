@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserMainPageController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../bg.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="166.0" layoutY="118.0" mnemonicParsing="false" onAction="#btnuserPageProfileClicked" prefHeight="75.0" prefWidth="77.0" text="Profile">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="260.0" layoutY="118.0" mnemonicParsing="false" onAction="#btnuserPagePredictClicked" prefHeight="75.0" prefWidth="77.0" text="Predict">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="355.0" layoutY="118.0" mnemonicParsing="false" onAction="#btnuserPageIncognitoClicked" prefHeight="75.0" prefWidth="77.0" text="Incognito">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="166.0" layoutY="206.0" mnemonicParsing="false" onAction="#btnCollegeListClicked" prefHeight="75.0" prefWidth="124.0" text="College List">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="309.0" layoutY="206.0" mnemonicParsing="false" onAction="#btnBranchListClicked" prefHeight="75.0" prefWidth="124.0" text="Branch List">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="540.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLogOutClicked" prefHeight="11.0" prefWidth="45.0" text="Log Out" textFill="#cf0000">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
