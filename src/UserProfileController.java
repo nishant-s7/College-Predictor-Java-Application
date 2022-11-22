@@ -35,6 +35,10 @@ public class UserProfileController implements Initializable{
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @FXML
     private ListView<String> userProfileListView;
     private ObservableList<String> userDetails = FXCollections.observableArrayList();
@@ -63,9 +67,7 @@ public class UserProfileController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         userProfileListView.getItems().addAll(userDetails);
-
     }
 
     public void setDetails() {
@@ -96,6 +98,31 @@ public class UserProfileController implements Initializable{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    @FXML
+    void hyperlinkDeleteClicked(ActionEvent event) {
+
+        boolean done = getUser().deleteAccount(getDb(), getUser().getPassword());
+
+        if(done) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Cover.fxml"));
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                System.err.print("Error in " + this.getClass().getName() + " : ");
+                System.err.println(e);
+            }
+
+            CoverController coverController = loader.getController();
+            coverController.setDb(db);
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 

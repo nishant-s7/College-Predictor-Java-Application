@@ -72,54 +72,62 @@ public class User extends Person{
     }
     
     public boolean Register(Connection connection) {
+
         try {
+            PreparedStatement stat = connection.prepareStatement("select count(*) from user_deleted where username = ? and email = ?");
+            stat.setString(1, this.getUsername());
+            stat.setString(2, this.getEmail());
+            ResultSet resultSetStat = stat.executeQuery();
+            if (resultSetStat.next() && resultSetStat.getInt(1) != 0) {
+                PreparedStatement deleteStat = connection.prepareStatement("delete from user_deleted where username = ? and email = ?");
+                deleteStat.setString(1, this.getUsername());
+                deleteStat.setString(2, this.getEmail());
+                deleteStat.executeUpdate();
+            }
+
             PreparedStatement statement1 = connection.prepareStatement("select count(username) from user_details where username = ?");
-            statement1.setString(1,getUsername());
+            statement1.setString(1, getUsername());
             ResultSet rs1 = statement1.executeQuery();
-            int count_username =0, count_email =0;
-            if(rs1.next())
-            {
+            int count_username = 0, count_email = 0;
+            if (rs1.next()) {
                 count_username = rs1.getInt(1);
             }
             PreparedStatement statement2 = connection.prepareStatement("select count(email) from user_details where email = ?");
-            statement2.setString(1,getEmail());
+            statement2.setString(1, getEmail());
             ResultSet rs2 = statement2.executeQuery();
-            if(rs2.next())
-            {
+            if (rs2.next()) {
                 count_email = rs2.getInt(1);
             }
-    
-            if(count_username >= 1 || count_email >= 1)
-            {
-                if(count_username>=1 && count_email >=1)
-                {
+
+            if (count_username >= 1 || count_email >= 1) {
+                if (count_username >= 1 && count_email >= 1) {
                     System.out.println("Above Username and e-mail ID is already Registered.\nPlease Login with your Username/email ID and Password!");
-                }else if(count_email >= 1)
-                {
+                } else if (count_email >= 1) {
                     System.out.println("Given E-mail is already registered.");
-                }else {
+                } else {
                     System.out.println("Given Username is not available, try with Different Username.");
                 }
                 return false;
-            }
-            else
-            {
-                PreparedStatement statement = connection.prepareStatement("insert into user_details(username,email,password,gender,category,generalRank,categoryRank) values(?,?,?,?,?,?,?)");
-                statement.setString(1, getUsername());
-                statement.setString(2, getEmail());
-                statement.setString(3, getPassword());
-                statement.setString(4, getGender());
-                statement.setString(5, getCategory());
-                statement.setInt(6, getGeneralRank());
-                statement.setInt(7, getCategoryRank());
-                statement.execute();
-                System.out.println("You have Registered Successfully ! ");
+            } else {
+                String[] data = new String[7];
+                data[0] = getUsername();
+                data[1] = getEmail();
+                data[2] = getPassword();
+                data[3] = getGender();
+                data[4] = getCategory();
+                data[5] = Integer.toString(getGeneralRank());
+                data[6] = Integer.toString(getCategoryRank());
+                CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_register.csv", data);
+                CSVFileHandle.addCSVtoDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_register.csv", connection);
+                System.out.println("You have Registered Successfully.");
+
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
     }
     
     public boolean Login(Connection connection) {
@@ -298,44 +306,41 @@ public class User extends Person{
         sc.close();
         return checkStatus;
     }
-    
-    // public boolean deleteAccount(Connection connection) {
-    //     Scanner sc = new Scanner(System.in);
-    //     String oldPass;
-    //     String uname;
-    //     boolean checkStatus = false;
-    //     int checkVal;
-        
-    //     System.out.println("NOTE:After Deletion of Account Your Data will be Erased and you will be log out \n Press 1:Continue\n Press 2:Stop Deletion");
-    //     checkVal = sc.nextInt();
-    //     sc.nextLine();
-    //     if (checkVal == 1) {
-    //         System.out.println("Enter Username");
-    //         uname = sc.nextLine();
-    //         System.out.println("Enter Your Password");
-    //         oldPass = sc.nextLine();
-            
-    //         if (oldPass.compareTo(getPassword()) == 0 && uname.compareTo(getUsername()) == 0) {
-    //             try {
-    //                 PreparedStatement stmt = connection.prepareStatement("delete from user_details where username = ? and password = ?");
-    //                 stmt.setString(1, uname);
-    //                 stmt.setString(2, oldPass);
-    //                 int ct = stmt.executeUpdate();
-    //                 if (ct != 0) {
-    //                     checkStatus = true;
-    //                     System.out.println("Account Deleted");
-                        
-    //                 } else {
-    //                     System.out.println("Can't Delete Account");
-                        
-    //                 }
-    //                 return checkStatus;
-    //             } catch (Exception e) {
-    //                 System.out.println("Application error : Database connectivity Problem");
-    //             }
-    //         }
-    //     }
-    //     return checkStatus;
-    // }
-    
+
+    public boolean deleteAccount(Connection connection, String oldPass) {
+
+        boolean checkStatus = false;
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("delete from user_details where username = ? and password = ?");
+            stmt.setString(1, getUsername());
+            stmt.setString(2, oldPass);
+            int ct = stmt.executeUpdate();
+            if (ct != 0) {
+                checkStatus = true;
+                System.out.println("Account Deleted");
+                String[] data =new String[7];
+                data[0]=getUsername();
+                data[1]=getEmail();
+                data[2]=getPassword();
+                data[3]=getGender();
+                data[4]=getCategory();
+                data[5]=Integer.toString(getGeneralRank());
+                data[6]=Integer.toString(getCategoryRank());
+
+                CSVFileHandle.WriteLineIntoCSVForDeletion("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_deleted.csv", data);
+            }
+            else {
+                System.out.println("Can't Delete Account");
+            }
+            return checkStatus;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Account can't be deleted");
+        return checkStatus;
+
+    }
+
 }

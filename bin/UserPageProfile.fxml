@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
@@ -22,6 +23,7 @@
       </Label>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUserProfileBackClicked" text="Back" />
       <ListView fx:id="userProfileListView" fixedCellSize="27.0" layoutX="217.0" layoutY="117.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="166.0" />
-      <Button layoutX="281.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnEditClicked" text="Edit" />
+      <Button layoutX="217.0" layoutY="298.0" mnemonicParsing="false" onAction="#btnEditClicked" prefHeight="26.0" prefWidth="49.0" text="Edit" />
+      <Hyperlink layoutX="300.0" layoutY="299.0" onAction="#hyperlinkDeleteClicked" text="Delete Account" textFill="#ea0000" />
    </children>
 </AnchorPane>

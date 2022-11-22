@@ -83,7 +83,7 @@ public class UserLoginController {
         }
 
         UserRegisterController userRegisterController = loader.getController();
-        userRegisterController.setDb(getDb());
+        userRegisterController.setDb(db);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
