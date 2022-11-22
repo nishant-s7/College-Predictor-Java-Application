@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +22,15 @@ public class IncognitoPageController implements Initializable{
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -76,8 +83,9 @@ public class IncognitoPageController implements Initializable{
         }
 
         IncognitoInstituteTableController instituteTableController = loader.getController();
-        instituteTableController.loadInstitutesIncognito(searchInstitute);
+        instituteTableController.setDb(db);
         instituteTableController.setUser(user);
+        instituteTableController.loadInstitutesIncognito(searchInstitute);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -102,30 +110,14 @@ public class IncognitoPageController implements Initializable{
 
     public void loadBranches() {
 
-        Connection Db = null;
-        try {
-            Db = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor", "root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        branchOptions = new Institute().getAllBranch(Db);
+        branchOptions = new Institute().getAllBranch(getDb());
         comboboxBranch.getItems().addAll(branchOptions);
 
     }
 
     public void loadInstitutes() {
 
-        Connection Db = null;
-        try {
-            Db = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor", "root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        instituteOptions = new Institute().getAllInstitute(Db);
+        instituteOptions = new Institute().getAllInstitute(getDb());
         comboboxInstitute.getItems().addAll(instituteOptions);
 
     }
@@ -142,6 +134,7 @@ public class IncognitoPageController implements Initializable{
         }
 
         UserMainPageController userMainPageController = loader.getController();
+        userMainPageController.setDb(db);
         userMainPageController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

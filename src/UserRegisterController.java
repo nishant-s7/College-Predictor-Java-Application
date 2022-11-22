@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +22,15 @@ public class UserRegisterController implements Initializable{
     private Scene scene;
     private Stage stage;
     private Parent root;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     @FXML
     private TextField registerUsername;
@@ -57,14 +64,6 @@ public class UserRegisterController implements Initializable{
     @FXML
     void btnUserRegisterEnterClicked(ActionEvent event) {
 
-        Connection userDb = null;
-        try {
-            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
         User newUserRegister = new User(
             registerUsername.getText(),
             registerEmail.getText(),
@@ -75,7 +74,7 @@ public class UserRegisterController implements Initializable{
             Integer.parseInt(registerGeneralRank.getText())
         );
 
-        if(newUserRegister.Register(userDb)) {
+        if(newUserRegister.Register(getDb())) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("UserPage.fxml"));
             try {
@@ -87,6 +86,7 @@ public class UserRegisterController implements Initializable{
 
             UserMainPageController userMainPageController = loader.getController();
             userMainPageController.setUser(newUserRegister);
+            userMainPageController.setDb(getDb());
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -99,6 +99,7 @@ public class UserRegisterController implements Initializable{
 
     @FXML
     void btnUserRegisterBackClicked(ActionEvent event) {
+    
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         try {
             root = loader.load();
@@ -106,10 +107,15 @@ public class UserRegisterController implements Initializable{
             System.err.print("Error in " + this.getClass().getName() + " : ");
             System.err.println(e);
         }
+
+        UserLoginController userLoginController = loader.getController();
+        userLoginController.setDb(db);
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
 }

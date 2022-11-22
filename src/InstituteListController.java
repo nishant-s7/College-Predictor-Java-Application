@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +25,15 @@ public class InstituteListController implements Initializable{
     private Stage stage;
     private Parent root;
     private Admin admin;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
@@ -59,15 +66,7 @@ public class InstituteListController implements Initializable{
 
     public void loadInstitutesAll(Admin admin) {
 
-        Connection adminDb = null;
-        try {
-            adminDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        collegeList = admin.getAllInstitute(adminDb);
+        collegeList = admin.getAllInstitute(getDb());
         listviewInstitute.getItems().addAll(collegeList);
 
     }
@@ -77,16 +76,8 @@ public class InstituteListController implements Initializable{
 
         int selectedId = listviewInstitute.getSelectionModel().getSelectedIndex();
 
-        Connection adminDb = null;
-        try {
-            adminDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
         String institute = listviewInstitute.getSelectionModel().getSelectedItem();
-        boolean deleted = getAdmin().removeInstitute(adminDb, institute);
+        boolean deleted = getAdmin().removeInstitute(getDb(), institute);
 
         if(deleted) {
             listviewInstitute.getItems().remove(selectedId);
@@ -106,6 +97,7 @@ public class InstituteListController implements Initializable{
         }
 
         AdminMainPageController adminMainPageController = loader.getController();
+        adminMainPageController.setDb(db);
         adminMainPageController.setAdmin(admin);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

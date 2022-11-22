@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.sql.Connection;
 import Classes.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,15 @@ public class UserMainPageController {
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -31,6 +41,7 @@ public class UserMainPageController {
         }
 
         IncognitoPageController incognitoPageController = loader.getController();
+        incognitoPageController.setDb(db);
         incognitoPageController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -52,6 +63,7 @@ public class UserMainPageController {
         }
 
         PredictMainPageController predictMainPageController = loader.getController();
+        predictMainPageController.setDb(db);
         predictMainPageController.createSearchInstitute(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -73,7 +85,9 @@ public class UserMainPageController {
         }
 
         UserProfileController userProfileController = loader.getController();
-        userProfileController.setDetails(user);
+        userProfileController.setDb(db);
+        userProfileController.setUser(user);
+        userProfileController.setDetails();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -94,6 +108,7 @@ public class UserMainPageController {
         }
 
         UserBranchListController branchListController = loader.getController();
+        branchListController.setDb(db);
         branchListController.setUser(user);
         branchListController.loadBranchesAll();
 
@@ -116,6 +131,7 @@ public class UserMainPageController {
         }
 
         UserInstituteListController userInstituteListController = loader.getController();
+        userInstituteListController.setDb(db);
         userInstituteListController.setUser(user);
         userInstituteListController.loadInstitutesAll();
 
@@ -136,6 +152,9 @@ public class UserMainPageController {
             System.err.print("Error in " + this.getClass().getName() + " : ");
             System.err.println(e);
         }
+
+        CoverController coverController = loader.getController();
+        coverController.setDb(db);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +24,15 @@ public class AdminListController implements Initializable{
     private Stage stage;
     private Parent root;
     private Admin admin;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
@@ -62,15 +69,7 @@ public class AdminListController implements Initializable{
 
     public void loadAdminList(Admin admin) {
 
-        Connection adminDb = null;
-        try {
-            adminDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        adminList = admin.getAdminList(adminDb);
+        adminList = admin.getAdminList(getDb());
         tableView.getItems().addAll(adminList);
 
     }
@@ -80,16 +79,8 @@ public class AdminListController implements Initializable{
 
         int selectedId = tableView.getSelectionModel().getSelectedIndex();
 
-        Connection adminDb = null;
-        try {
-            adminDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
         Admin admint = tableView.getSelectionModel().getSelectedItem();
-        boolean deleted = getAdmin().removeAdmin(adminDb, admint.getUsername(), admint.getEmail());
+        boolean deleted = getAdmin().removeAdmin(getDb(), admint.getUsername(), admint.getEmail());
 
         if(deleted) {
             tableView.getItems().remove(selectedId);
@@ -109,6 +100,7 @@ public class AdminListController implements Initializable{
         }
 
         AdminMainPageController adminMainPageController = loader.getController();
+        adminMainPageController.setDb(db);
         adminMainPageController.setAdmin(admin);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -1,8 +1,6 @@
 import Classes.*;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +17,15 @@ public class UserEditDetailsController {
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -46,15 +53,7 @@ public class UserEditDetailsController {
     @FXML
     void btnChangeCatRankClicked(ActionEvent event) {
 
-        Connection userDb = null;
-        try {
-            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        boolean load = getUser().UpdateUserDetails(userDb, 4, tfCatRank.getText());
+        boolean load = getUser().UpdateUserDetails(getDb(), 4, tfCatRank.getText());
         if(load) {
             labelMessage.setText("Category rank updated successfully!");
         }
@@ -64,15 +63,7 @@ public class UserEditDetailsController {
     @FXML
     void btnChangeCategoryClicked(ActionEvent event) {
 
-        Connection userDb = null;
-        try {
-            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        boolean load = getUser().UpdateUserDetails(userDb, 2, tfCategory.getText());
+        boolean load = getUser().UpdateUserDetails(getDb(), 2, tfCategory.getText());
         if(load) {
             labelMessage.setText("Category updated successfully!");
         }
@@ -82,15 +73,7 @@ public class UserEditDetailsController {
     @FXML
     void btnChangeGenRankClicked(ActionEvent event) {
 
-        Connection userDb = null;
-        try {
-            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        boolean load = getUser().UpdateUserDetails(userDb, 3, tfGenRank.getText());
+        boolean load = getUser().UpdateUserDetails(getDb(), 3, tfGenRank.getText());
         if(load) {
             labelMessage.setText("General rank updated successfully!");
         }
@@ -100,15 +83,7 @@ public class UserEditDetailsController {
     @FXML
     void btnChangeGenderClicked(ActionEvent event) {
 
-        Connection userDb = null;
-        try {
-            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        boolean load = getUser().UpdateUserDetails(userDb, 1, tfGender.getText());
+        boolean load = getUser().UpdateUserDetails(getDb(), 1, tfGender.getText());
         if(load) {
             labelMessage.setText("Gender updated successfully!");
         }
@@ -128,7 +103,7 @@ public class UserEditDetailsController {
 
         UserProfileController userProfileController = loader.getController();
         userProfileController.setUser(user);
-        userProfileController.setDetails(user);
+        userProfileController.setDetails();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

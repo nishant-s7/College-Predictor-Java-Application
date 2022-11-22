@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +26,15 @@ public class IncognitoInstituteTableController implements Initializable{
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -106,16 +113,7 @@ public class IncognitoInstituteTableController implements Initializable{
 
     public void loadInstitutesIncognito(SearchInstitute searchInstitute) {
 
-        Connection instDb = null;
-        try {
-            instDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        collegeList = searchInstitute.IncognitoSearch(instDb, searchInstitute.getRound(), searchInstitute.getGender(), searchInstitute.getInstituteName(), searchInstitute.getBranch(), searchInstitute.getCategory(), searchInstitute.getCategoryRank());
-        
+        collegeList = searchInstitute.IncognitoSearch(getDb(), searchInstitute.getRound(), searchInstitute.getGender(), searchInstitute.getInstituteName(), searchInstitute.getBranch(), searchInstitute.getCategory(), searchInstitute.getCategoryRank());
         tableView.getItems().addAll(collegeList);
 
     }
@@ -132,6 +130,7 @@ public class IncognitoInstituteTableController implements Initializable{
         }
 
         IncognitoPageController incognitoPageController = loader.getController();
+        incognitoPageController.setDb(db);
         incognitoPageController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

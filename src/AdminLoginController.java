@@ -1,8 +1,6 @@
 import Classes.*;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +17,15 @@ public class AdminLoginController {
     private Scene scene;
     private Stage stage;
     private Parent root;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     @FXML
     private Label incorrectDetails;
@@ -38,6 +45,10 @@ public class AdminLoginController {
             System.err.print("Error in " + this.getClass().getName() + " : ");
             System.err.println(e);
         }
+
+        CoverController coverController = loader.getController();
+        coverController.setDb(db);
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -47,17 +58,9 @@ public class AdminLoginController {
     @FXML
     void btnLoginSignInClicked(ActionEvent event) {
 
-        Connection adminDb = null;
-        try {
-            adminDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor", "root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
         Admin adminLoggingIn = new Admin(usernameEmailinput.getText(), passwordInput.getText());
 
-        if (adminLoggingIn.Login(adminDb)) {
+        if (adminLoggingIn.Login(getDb())) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPage.fxml"));
             try {
@@ -68,6 +71,7 @@ public class AdminLoginController {
             }
 
             AdminMainPageController adminMainPageController = loader.getController();
+            adminMainPageController.setDb(db);;
             adminMainPageController.setAdmin(adminLoggingIn);
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -75,10 +79,9 @@ public class AdminLoginController {
             stage.setScene(scene);
             stage.show();
 
-        } else {
-
+        }
+        else {
             incorrectDetails.setText("Incorrect username or password");
-
         }
 
     }

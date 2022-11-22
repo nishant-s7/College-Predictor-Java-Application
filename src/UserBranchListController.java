@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +24,15 @@ public class UserBranchListController implements Initializable{
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -58,15 +65,7 @@ public class UserBranchListController implements Initializable{
 
     public void loadBranchesAll() {
 
-        Connection Db = null;
-        try {
-            Db = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        branchList = getUser().getAllBranch(Db);
+        branchList = getUser().getAllBranch(getDb());
         listviewBranch.getItems().addAll(branchList);
 
     }
@@ -83,6 +82,7 @@ public class UserBranchListController implements Initializable{
         }
 
         UserMainPageController userMainPageController = loader.getController();
+        userMainPageController.setDb(db);
         userMainPageController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

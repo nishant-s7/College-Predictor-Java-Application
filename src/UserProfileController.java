@@ -1,6 +1,7 @@
 import Classes.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,15 @@ public class UserProfileController implements Initializable{
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -41,6 +51,7 @@ public class UserProfileController implements Initializable{
         }
 
         UserMainPageController userMainPageController = loader.getController();
+        userMainPageController.setDb(db);
         userMainPageController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -57,8 +68,7 @@ public class UserProfileController implements Initializable{
 
     }
 
-    public void setDetails(User user) {
-        setUser(user);
+    public void setDetails() {
         userProfileListView.getItems().add("Username : " + user.getUsername());
         userProfileListView.getItems().add("Email : " + user.getEmail());
         userProfileListView.getItems().add("Gender : " + user.getGender());
@@ -79,6 +89,7 @@ public class UserProfileController implements Initializable{
         }
 
         UserEditDetailsController userEditDetailsController = loader.getController();
+        userEditDetailsController.setDb(db);
         userEditDetailsController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -2,8 +2,6 @@ import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +26,15 @@ public class InstituteTableController implements Initializable{
     private Stage stage;
     private Parent root;
     private User user;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -106,15 +113,7 @@ public class InstituteTableController implements Initializable{
 
     public void loadInstitutesSimplePredict(SearchInstitute searchInstitute) {
 
-        Connection instDb = null;
-        try {
-            instDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
-        collegeList = searchInstitute.searchCollege(instDb);
+        collegeList = searchInstitute.searchCollege(getDb());
         tableView.getItems().addAll(collegeList);
 
     }
@@ -131,6 +130,7 @@ public class InstituteTableController implements Initializable{
         }
 
         PredictMainPageController predictMainPageController = loader.getController();
+        predictMainPageController.setDb(db);
         predictMainPageController.createSearchInstitute(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

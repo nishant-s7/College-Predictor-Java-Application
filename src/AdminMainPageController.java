@@ -1,5 +1,6 @@
 import Classes.*;
 import java.io.IOException;
+import java.sql.Connection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,15 @@ public class AdminMainPageController {
     private Stage stage;
     private Parent root;
     private Admin admin;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
@@ -35,6 +45,7 @@ public class AdminMainPageController {
         }
 
         AdminListController adminListController = loader.getController();
+        adminListController.setDb(db);
         adminListController.loadAdminList(admin);
         adminListController.setAdmin(admin);
 
@@ -57,6 +68,7 @@ public class AdminMainPageController {
         }
 
         AdminAdditionController adminAdditionController = loader.getController();
+        adminAdditionController.setDb(db);
         adminAdditionController.setAdmin(getAdmin());
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -78,8 +90,9 @@ public class AdminMainPageController {
         }
 
         AdminUserListController adminUserListController = loader.getController();
-        adminUserListController.loadUsers(admin);
+        adminUserListController.setDb(db);
         adminUserListController.setAdmin(admin);
+        adminUserListController.loadUsers(admin);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -100,6 +113,7 @@ public class AdminMainPageController {
         }
 
         InstituteListController instituteListController = loader.getController();
+        instituteListController.setDb(db);
         instituteListController.loadInstitutesAll(admin);
         instituteListController.setAdmin(admin);
 
@@ -122,8 +136,9 @@ public class AdminMainPageController {
         }
 
         BranchListController branchListController = loader.getController();
-        branchListController.loadBranchesAll(admin);
+        branchListController.setDb(db);
         branchListController.setAdmin(admin);
+        branchListController.loadBranchesAll(admin);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -142,6 +157,9 @@ public class AdminMainPageController {
             System.err.print("Error in " + this.getClass().getName() + " : ");
             System.err.println(e);
         }
+
+        CoverController coverController = loader.getController();
+        coverController.setDb(db);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

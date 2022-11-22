@@ -1,6 +1,7 @@
 import Classes.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,15 @@ public class PredictMainPageController implements Initializable{
     private Parent root;
     private User user;
     private SearchInstitute searchInstitute;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -63,6 +73,7 @@ public class PredictMainPageController implements Initializable{
         searchInstitute.setSelect(1);
 
         InstituteTableController simplePredictTableController = loader.getController();
+        simplePredictTableController.setDb(db);
         simplePredictTableController.loadInstitutesSimplePredict(searchInstitute);
         simplePredictTableController.setUser(user);
 
@@ -89,6 +100,7 @@ public class PredictMainPageController implements Initializable{
         searchInstitute.setInstituteName(tfPredbyIns_Institute.getText());
 
         InstituteTableController simplePredictTableController = loader.getController();
+        simplePredictTableController.setDb(db);
         simplePredictTableController.loadInstitutesSimplePredict(searchInstitute);
         simplePredictTableController.setUser(user);
 
@@ -115,6 +127,7 @@ public class PredictMainPageController implements Initializable{
         searchInstitute.setBranch(tfPredbyBrnch_Branch.getText());
 
         InstituteTableController simplePredictTableController = loader.getController();
+        simplePredictTableController.setDb(db);
         simplePredictTableController.loadInstitutesSimplePredict(searchInstitute);
         simplePredictTableController.setUser(user);
 
@@ -142,6 +155,7 @@ public class PredictMainPageController implements Initializable{
         searchInstitute.setBranch(tfPredbyBrnch_Branch.getText());
 
         InstituteTableController simplePredictTableController = loader.getController();
+        simplePredictTableController.setDb(db);
         simplePredictTableController.loadInstitutesSimplePredict(searchInstitute);
         simplePredictTableController.setUser(user);
 
@@ -164,6 +178,7 @@ public class PredictMainPageController implements Initializable{
         }
 
         UserMainPageController userMainPageController = loader.getController();
+        userMainPageController.setDb(db);
         userMainPageController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

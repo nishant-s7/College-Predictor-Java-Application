@@ -1,8 +1,6 @@
 import Classes.*;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +18,15 @@ public class UserLoginController {
     private Scene scene;
     private Stage stage;
     private Parent root;
+    private Connection db;
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public Connection getDb() {
+        return db;
+    }
 
     @FXML
     private Hyperlink hyperlinkRegister;
@@ -36,17 +43,9 @@ public class UserLoginController {
     @FXML
     void btnLoginSignInClicked(ActionEvent event) {
 
-        Connection userDb = null;
-        try {
-            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
-        } catch (SQLException e) {
-            System.err.print("Error in " + this.getClass().getName() + " : ");
-            System.err.println(e);
-        }
-
         User userLoggingIn = new User(usernameEmailinput.getText(), passwordInput.getText());
 
-        if (userLoggingIn.Login(userDb)) {
+        if (userLoggingIn.Login(getDb())) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("UserPage.fxml"));
             try {
@@ -58,6 +57,7 @@ public class UserLoginController {
 
             UserMainPageController userMainPageController = loader.getController();
             userMainPageController.setUser(userLoggingIn);
+            userMainPageController.setDb(getDb());
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -66,15 +66,14 @@ public class UserLoginController {
 
         }
         else {
-
             incorrectDetails.setText("Incorrect username or password");
-
         }
 
     }
     
     @FXML
     void registerClicked(ActionEvent event) {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserRegistration.fxml"));
         try {
             root = loader.load();
@@ -82,14 +81,20 @@ public class UserLoginController {
             System.err.print("Error in " + this.getClass().getName() + " : ");
             System.err.println(e);
         }
+
+        UserRegisterController userRegisterController = loader.getController();
+        userRegisterController.setDb(getDb());
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     @FXML
     void btnLoginBackClicked(ActionEvent event) {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Cover.fxml"));
         try {
             root = loader.load();
@@ -97,10 +102,15 @@ public class UserLoginController {
             System.err.print("Error in " + this.getClass().getName() + " : ");
             System.err.println(e);
         }
+
+        CoverController coverController = loader.getController();
+        coverController.setDb(db);
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
 }
