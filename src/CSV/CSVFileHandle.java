@@ -32,15 +32,13 @@ public class CSVFileHandle {
         File file = new File(filepath);
         
         try {
-            
             FileWriter outputfile = new FileWriter(file, false);
             CSVWriter writer = new CSVWriter(outputfile, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
             writer.writeNext(data);
             
             writer.close();
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Application error : File handling problem.");
+            e.printStackTrace();
         }
     }
 
@@ -132,7 +130,8 @@ public class CSVFileHandle {
             lineReader.close();
             preparedStatement.executeBatch();
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
+            System.out.println("caught");
+            e.printStackTrace();
         }
     }
 
@@ -155,7 +154,8 @@ public class CSVFileHandle {
             lineReader.close();
             preparedStatement.executeBatch();
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
+            System.out.println("caught");
+            e.printStackTrace();
         }
     }
 
@@ -179,6 +179,7 @@ public class CSVFileHandle {
             preparedStatement.executeBatch();
         } catch (Exception e) {
             System.out.println("Application error : Database connectivity problem.");
+            System.out.println(e);
         }
     }
 
@@ -202,6 +203,7 @@ public class CSVFileHandle {
             preparedStatement.executeBatch();
         } catch (Exception e) {
             System.out.println("Application error : Database connectivity problem.");
+            System.out.println(e);
         }
     }
     

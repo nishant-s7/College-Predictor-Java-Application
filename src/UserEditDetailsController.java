@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +35,7 @@ public class UserEditDetailsController {
     private TextField tfCatRank;
 
     @FXML
-    private TextField tfEmail;
+    private TextField tfCategory;
 
     @FXML
     private TextField tfGenRank;
@@ -47,15 +46,54 @@ public class UserEditDetailsController {
     @FXML
     void btnChangeCatRankClicked(ActionEvent event) {
 
+        Connection userDb = null;
+        try {
+            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
+        } catch (SQLException e) {
+            System.err.print("Error in " + this.getClass().getName() + " : ");
+            System.err.println(e);
+        }
+
+        boolean load = getUser().UpdateUserDetails(userDb, 4, tfCatRank.getText());
+        if(load) {
+            labelMessage.setText("Category rank updated successfully!");
+        }
+
     }
 
     @FXML
-    void btnChangeEmailClicked(ActionEvent event) {
+    void btnChangeCategoryClicked(ActionEvent event) {
+
+        Connection userDb = null;
+        try {
+            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
+        } catch (SQLException e) {
+            System.err.print("Error in " + this.getClass().getName() + " : ");
+            System.err.println(e);
+        }
+
+        boolean load = getUser().UpdateUserDetails(userDb, 2, tfCategory.getText());
+        if(load) {
+            labelMessage.setText("Category updated successfully!");
+        }
 
     }
 
     @FXML
     void btnChangeGenRankClicked(ActionEvent event) {
+
+        Connection userDb = null;
+        try {
+            userDb = DriverManager.getConnection("jdbc:mysql://localhost:3307/java_proj_college_predictor","root", "D@ta8aSe");
+        } catch (SQLException e) {
+            System.err.print("Error in " + this.getClass().getName() + " : ");
+            System.err.println(e);
+        }
+
+        boolean load = getUser().UpdateUserDetails(userDb, 3, tfGenRank.getText());
+        if(load) {
+            labelMessage.setText("General rank updated successfully!");
+        }
 
     }
 

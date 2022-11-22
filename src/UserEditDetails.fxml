@@ -24,17 +24,17 @@
                   <Insets bottom="7.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfEmail" layoutX="10.0" layoutY="10.0" promptText="Enter new email">
+            <TextField fx:id="tfCategory" layoutX="10.0" layoutY="10.0" promptText="Enter category">
                <VBox.margin>
                   <Insets bottom="7.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfGenRank" layoutX="10.0" layoutY="36.0" promptText="Enter new general rank">
+            <TextField fx:id="tfGenRank" layoutX="10.0" layoutY="36.0" promptText="Enter general rank">
                <VBox.margin>
                   <Insets bottom="7.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfCatRank" layoutX="10.0" layoutY="61.0" promptText="Enter new category rank" />
+            <TextField fx:id="tfCatRank" layoutX="10.0" layoutY="61.0" promptText="Enter category rank" />
          </children>
       </VBox>
       <VBox layoutX="349.0" layoutY="165.0" prefHeight="126.0" prefWidth="62.0">
@@ -44,7 +44,7 @@
                   <Insets bottom="7.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnChangeEmailClicked" prefHeight="26.0" prefWidth="63.0" text="Confirm">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnChangeCategoryClicked" prefHeight="26.0" prefWidth="63.0" text="Confirm">
                <VBox.margin>
                   <Insets bottom="7.0" />
                </VBox.margin>

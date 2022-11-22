@@ -158,34 +158,52 @@ public class User extends Person{
     }
 
     public void UpdateUserData(Connection connection) {
-        CSVFileHandle.UpdateCategoryData_CSVtoDatabase("./CSV/user_updatedCategory.csv", connection);
-        CSVFileHandle.UpdateGenderData_CSVtoDatabase("./CSV/user_updatedGender.csv", connection);
-        CSVFileHandle.UpdateGeneralRankData_CSVtoDatabase("./CSV/user_updatedGeneralRank.csv", connection);
-        CSVFileHandle.UpdateCategoryRankData_CSVtoDatabase("./CSV/user_updatedCategoryRank.csv", connection);
+
+        CSVFileHandle.UpdateCategoryData_CSVtoDatabase(
+            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategory.csv",
+            connection
+        );
+        CSVFileHandle.UpdateGenderData_CSVtoDatabase(
+            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGender.csv",
+            connection
+        );
+        CSVFileHandle.UpdateGeneralRankData_CSVtoDatabase(
+            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGeneralRank.csv",
+            connection
+        );
+        CSVFileHandle.UpdateCategoryRankData_CSVtoDatabase(
+            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategoryRank.csv",
+            connection
+        );
+
         try {
-            PreparedStatement stmt = connection
-                    .prepareStatement("select * from user_details where username = ? and email = ?");
+            PreparedStatement stmt = connection.prepareStatement("select * from user_details where username = ? and email = ?");
             stmt.setString(1, this.getUsername());
             stmt.setString(2, this.getEmail());
             ResultSet rs = stmt.executeQuery();
             ArrayList<User> UserList = new ArrayList<>();
             while (rs.next()) {
-                User user = new User(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(4), rs.getInt(6),
-                        rs.getInt(7));
+                User user = new User(
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(5),
+                    rs.getString(4),
+                    rs.getInt(6),
+                    rs.getInt(7)
+                );
                 UserList.add(user);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
     
     public boolean UpdateUserDetails(Connection connection, int select, String str) {
 
         try{
             switch (select) {
-                case 1:
-                {
+                case 1 -> {
                     // System.out.println("Enter New Gender");
                     // str = sc.next();
                     String[] data =new String[3];
@@ -193,12 +211,14 @@ public class User extends Person{
                     data[1]=getEmail();
                     data[2]=str;
                     this.setGender(str);
-                    CSVFileHandle.WritelineIntoCSV("./CSV/user_updatedGender.csv", data);
-                    break;
+                    
+                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGender.csv", data);
+
+                    UpdateUserData(connection);
+                    return true;
                 }
 
-                case 2:
-                {
+                case 2 -> {
                     System.out.println("Enter New Category");
                     // str = sc.next();
                     String[] data =new String[3];
@@ -206,12 +226,13 @@ public class User extends Person{
                     data[1]=getEmail();
                     data[2]=str;
                     setCategory(str);
-                    CSVFileHandle.WritelineIntoCSV("./CSV/user_updatedCategory.csv", data);
-                    break;
+                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategory.csv", data);
+
+                    UpdateUserData(connection);
+                    return true;
                 }
 
-                case 3:
-                {
+                case 3 -> {
                     System.out.println("Enter New GeneralRank");
                     // rank = sc.nextInt();
                     String[] data =new String[3];
@@ -219,11 +240,13 @@ public class User extends Person{
                     data[1]=getEmail();
                     data[2]=str;
                     setGeneralRank(Integer.parseInt(str));
-                    CSVFileHandle.WritelineIntoCSV("./CSV/user_updatedGeneralRank.csv", data);
-                    break;
+                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGeneralRank.csv", data);
+                    
+                    UpdateUserData(connection);
+                    return true;
                 }
 
-                case 4:{
+                case 4 -> {
                     System.out.println("Enter New CategoryRank");
                     // rank = sc.nextInt();
                     String[] data =new String[3];
@@ -231,23 +254,18 @@ public class User extends Person{
                     data[1]=getEmail();
                     data[2]=str;
                     setCategoryRank(Integer.parseInt(str));
-                    CSVFileHandle.WritelineIntoCSV("./CSV/user_updatedCategoryRank.csv", data);
-                    break;
-                }
-                default: {
-                    break;
+                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategoryRank.csv", data);
+                    
+                    UpdateUserData(connection);
+                    return true;
                 }
             }
 
-            UpdateUserData(connection);
-            return true;
-
         }
         catch (Exception e) {   
-            System.out.println(e);         
-            System.out.println("Application error : Database connectivity Problem");
-            return false;
+            e.printStackTrace();
         }
+        return false;
 
     }
 
