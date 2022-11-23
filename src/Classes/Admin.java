@@ -106,7 +106,7 @@ public class Admin extends Person{
             
         }
         catch(Exception e){
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
             return false;
         }
     }
@@ -144,7 +144,7 @@ public class Admin extends Person{
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
             return false;
         }
     }
@@ -201,7 +201,7 @@ public class Admin extends Person{
             }
         }
         catch(Exception e){
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
         }
         return UserList;
 
@@ -223,7 +223,7 @@ public class Admin extends Person{
             }
         }
         catch(Exception e){
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
             return false;
         }
     }

@@ -160,7 +160,7 @@ public class User extends Person{
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
             return false;
         }
     }
@@ -300,7 +300,7 @@ public class User extends Person{
                 }
                 
             } catch (Exception e) {
-                System.out.println("Application error : Database connectivity Problem");
+                e.printStackTrace();
             }
         }
         sc.close();

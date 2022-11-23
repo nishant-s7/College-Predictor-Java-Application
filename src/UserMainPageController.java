@@ -43,6 +43,8 @@ public class UserMainPageController {
         IncognitoPageController incognitoPageController = loader.getController();
         incognitoPageController.setDb(db);
         incognitoPageController.setUser(user);
+        incognitoPageController.loadBranches();
+        incognitoPageController.loadInstitutes();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -115,7 +115,7 @@ public class SearchInstitute extends User {
 
         }
         catch(Exception e){
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
         }
         return InstituteList1;
 
@@ -246,7 +246,7 @@ public class SearchInstitute extends User {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
         }
         return null;
     }

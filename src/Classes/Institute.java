@@ -109,7 +109,7 @@ public class Institute{
             }
             
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
         }
         return InstituteList;
 
@@ -128,7 +128,7 @@ public class Institute{
             }
             
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity Problem");
+            e.printStackTrace();
         }
         return instituteList;
 

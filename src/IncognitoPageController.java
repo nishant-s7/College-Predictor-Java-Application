@@ -102,9 +102,8 @@ public class IncognitoPageController implements Initializable{
         comboboxGender.getItems().addAll(genderOptions);
         comboboxInstitute.getItems().addAll(instituteOptions);
         comboboxRound.getItems().addAll(roundOptions);
-
-        loadBranches();
-        loadInstitutes();
+        comboboxBranch.getItems().addAll(branchOptions);
+        comboboxInstitute.getItems().addAll(instituteOptions);
 
     }
 
