@@ -3,6 +3,7 @@ package Classes;
 import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import CSV.*;
 
 public class Admin extends Person{
     private String position;
@@ -228,77 +229,105 @@ public class Admin extends Person{
         }
     }
 
-    // //Search via ID/Primary-Key => Single Record
-    // public void getUser(Connection connection,String username, String email){
-    //     try{
-    //         PreparedStatement stmt = connection.prepareStatement("SELECT username,email,category,gender,generalRank,categoryRank ,count(*) FROM user_details where username = ? and email = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-    //         stmt.setString(1,username);
-    //         stmt.setString(2,email);
-    //         ResultSet rs = stmt.executeQuery();
-    //         if(rs.next() && rs.getInt(7) ==0)
-    //         {
-    //             System.out.println("User not exist / Invalid Username or E-mail");
-    //         }
-    //         rs.previous();
-    //         ArrayList<User> UserList = new ArrayList<>();
-    //         while(rs.next()){
-    //             User user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getInt(6));
-    //             UserList.add(user);
-    //         }
-    //         User user1 = new User();
-    //         user1.printUserList(UserList);
-    //     }
-    //     catch(Exception e){
-    //         System.out.println("Application error : Database connectivity Problem");
-    //     }
-    // }
+    //Search via ID/Primary-Key => Single Record
+    public ObservableList<User> getUser(Connection connection,String username, String email){
+        ObservableList<User> UserList = FXCollections.observableArrayList();
+        try{
+            PreparedStatement stmt = connection.prepareStatement("SELECT username,email,category,gender,generalRank,categoryRank ,count(*) FROM user_details where username = ? and email = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt.setString(1,username);
+            stmt.setString(2,email);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next() && rs.getInt(7) ==0)
+            {
+                System.out.println("User not exist / Invalid Username or E-mail");
+                UserList = null;
+            }
+            else {
+            rs.previous();
+                while(rs.next()){
+                    User user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getInt(6));
+                    UserList.add(user);
+                }
+            }
+            // User user1 = new User();
+            // user1.printUserList(UserList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return UserList;
+    }
+
+    public void UploadDeletedUserCSV(Connection connection){
+        
+        try{
+            CSVFileHandle.addUser_deletedCsvToDatabasesUser_deleted("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_deleted.csv", connection);
+
+            CSVFileHandle.DeleteCSVFIle("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_deleted.csv");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     
-    // public void sortUserList(ArrayList<User> arrayList)
-    // {
-    //     Scanner scanner = new Scanner(System.in);
-    //     System.out.println("Do you want to Sort User List\n1.Yes     2.No    (Select option number 1 or 2");
-    //     int opt = scanner.nextInt();
-    //     while (opt == 1) {
-    //         System.out.println("Select proper number (1-5) for Parameter by which you want to sort User List\n1.Username     2.Category      3.Gender      4.Category Rank     5.General Rank");
-    //         int para = scanner.nextInt();
-    //         switch (para) {
-    //             case 1: {
-    //                 arrayList.sort(User::compareTo);
-    //                 System.out.println("User List is Sorted by Username");
-    //                 printUserList(arrayList);
-    //                 break;
-    //             }
-    //             case 2: {
-    //                 arrayList.sort(User::compareTo1);
-    //                 System.out.println("User List is Sorted by Category");
-    //                 printUserList(arrayList);
-    //                 break;
-    //             }
-    //             case 3: {
-    //                 arrayList.sort(User::compareTo2);
-    //                 System.out.println("User List is Sorted by Gender");
-    //                 printUserList(arrayList);
-    //                 break;
-    //             }
-    //             case 4: {
-    //                 arrayList.sort(User::compareTo3);
-    //                 System.out.println("User List is Sorted by General Rank");
-    //                 printUserList(arrayList);
-    //                 break;
-    //             }
-    //             case 5: {
-    //                 arrayList.sort(User::compareTo4);
-    //                 System.out.println("User List is Sorted by Category Rank");
-    //                 printUserList(arrayList);
-    //                 break;
-    //             }
-    //             default: {
-    //                 System.out.println("Error : Invalid option is Selected !");
-    //                 break;
-    //             }
-    //         }
-    //         System.out.println("Do you want to Sort it again\n1.Yes     2.No    (Select option number 1 or 2)");
-    //         opt = scanner.nextInt();
-    //     }
-    // }
+    
+    public static void UploadAllJosaaRoundCutoff(Connection connection) {
+
+        try{
+            CSVFileHandle.UploadJosaaRoundCutoffToDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\round1.csv",connection,1);
+            PreparedStatement statement1 = connection.prepareStatement("select count(*) from round1");
+            ResultSet rs1 = statement1.executeQuery();
+            if(rs1.next())
+            {
+                System.out.println(rs1.getInt(1)+" rows Inserted successfully in java_proj_college_predictor.round1");
+            }
+            
+            CSVFileHandle.UploadJosaaRoundCutoffToDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\round2.csv",connection,2);
+            PreparedStatement statement2 = connection.prepareStatement("select count(*) from round2");
+            ResultSet rs2 = statement2.executeQuery();
+            if(rs2.next())
+            {
+                System.out.println(rs2.getInt(1)+" rows Inserted successfully in java_proj_college_predictor.round2");
+            }
+            
+            CSVFileHandle.UploadJosaaRoundCutoffToDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\round3.csv",connection,3);
+            PreparedStatement statement3 = connection.prepareStatement("select count(*) from round3");
+            ResultSet rs3 = statement3.executeQuery();
+            if(rs3.next())
+            {
+                System.out.println(rs3.getInt(1)+" rows Inserted successfully in java_proj_college_predictor.round3");
+            }
+            
+            CSVFileHandle.UploadJosaaRoundCutoffToDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\round4.csv",connection,4);
+            PreparedStatement statement4 = connection.prepareStatement("select count(*) from round4");
+            ResultSet rs4 = statement4.executeQuery();
+            if(rs4.next())
+            {
+                System.out.println(rs4.getInt(1)+" rows Inserted successfully in java_proj_college_predictor.round4");
+            }
+            
+            CSVFileHandle.UploadJosaaRoundCutoffToDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\round5.csv",connection,5);
+            PreparedStatement statement5 = connection.prepareStatement("select count(*) from round5");
+            ResultSet rs5 = statement5.executeQuery();
+            if(rs5.next())
+            {
+                System.out.println(rs5.getInt(1)+" rows Inserted successfully in java_proj_college_predictor.round5");
+            }
+            
+            CSVFileHandle.UploadJosaaRoundCutoffToDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\round6.csv",connection,6);
+            PreparedStatement statement6 = connection.prepareStatement("select count(*) from round6");
+            ResultSet rs6 = statement6.executeQuery();
+            if(rs6.next())
+            {
+                System.out.println(rs6.getInt(1)+" rows Inserted successfully in java_proj_college_predictor.round6");
+            }
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
 }

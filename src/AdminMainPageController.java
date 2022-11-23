@@ -79,6 +79,28 @@ public class AdminMainPageController {
     }
 
     @FXML
+    void btnSearchUserClicked(ActionEvent event) {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminUserSearch.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.err.print("Error in " + this.getClass().getName() + " : ");
+            System.err.println(e);
+        }
+
+        AdminUserSearchController adminUserSearchController = loader.getController();
+        adminUserSearchController.setDb(db);
+        adminUserSearchController.setAdmin(getAdmin());
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
     void btnViewUserListClicked(ActionEvent event) {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminUserList.fxml"));

@@ -107,7 +107,7 @@ public class CSVFileHandle {
             
             
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
+            e.printStackTrace();
         }
     }
 
@@ -241,7 +241,7 @@ public class CSVFileHandle {
             System.out.println("User data uploaded");
             
         } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
+            e.printStackTrace();
         }
     }
     

@@ -227,7 +227,7 @@ public class User extends Person{
                 }
 
                 case 2 -> {
-                    System.out.println("Enter New Category");
+                    // System.out.println("Enter New Category");
                     // str = sc.next();
                     String[] data =new String[3];
                     data[0]=getUsername();
@@ -241,7 +241,7 @@ public class User extends Person{
                 }
 
                 case 3 -> {
-                    System.out.println("Enter New GeneralRank");
+                    // System.out.println("Enter New GeneralRank");
                     // rank = sc.nextInt();
                     String[] data =new String[3];
                     data[0]=getUsername();
@@ -255,7 +255,7 @@ public class User extends Person{
                 }
 
                 case 4 -> {
-                    System.out.println("Enter New CategoryRank");
+                    // System.out.println("Enter New CategoryRank");
                     // rank = sc.nextInt();
                     String[] data =new String[3];
                     data[0]=getUsername();

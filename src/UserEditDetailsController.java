@@ -103,6 +103,7 @@ public class UserEditDetailsController {
 
         UserProfileController userProfileController = loader.getController();
         userProfileController.setUser(user);
+        userProfileController.setDb(db);
         userProfileController.setDetails();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
