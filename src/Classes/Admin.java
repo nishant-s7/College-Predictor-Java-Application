@@ -270,7 +270,6 @@ public class Admin extends Person{
         }
     }
     
-    
     public static void UploadAllJosaaRoundCutoff(Connection connection) {
 
         try{

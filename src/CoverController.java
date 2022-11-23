@@ -1,3 +1,4 @@
+import Classes.*;
 import java.io.IOException;
 import java.sql.Connection;
 import javafx.scene.Node;
@@ -63,6 +64,12 @@ public class CoverController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    @FXML
+    void hyperlinkLoadDatabasesClicked(ActionEvent event) {
+        Admin.UploadAllJosaaRoundCutoff(getDb());
+        System.out.println("Loaded all databases.");
     }
 
 }
