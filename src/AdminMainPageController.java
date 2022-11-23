@@ -190,4 +190,11 @@ public class AdminMainPageController {
 
     }
 
+    @FXML
+    void btnUpdateInstitutesClicked(ActionEvent event) {
+
+        
+
+    }
+
 }
