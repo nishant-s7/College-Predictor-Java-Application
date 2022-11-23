@@ -1,6 +1,5 @@
 package Classes;
 
-import CSV.*;
 import java.sql.*;
 import java.util.*;
 
@@ -74,17 +73,6 @@ public class User extends Person{
     public boolean Register(Connection connection) {
 
         try {
-            PreparedStatement stat = connection.prepareStatement("select count(*) from user_deleted where username = ? and email = ?");
-            stat.setString(1, this.getUsername());
-            stat.setString(2, this.getEmail());
-            ResultSet resultSetStat = stat.executeQuery();
-            if (resultSetStat.next() && resultSetStat.getInt(1) != 0) {
-                PreparedStatement deleteStat = connection.prepareStatement("delete from user_deleted where username = ? and email = ?");
-                deleteStat.setString(1, this.getUsername());
-                deleteStat.setString(2, this.getEmail());
-                deleteStat.executeUpdate();
-            }
-
             PreparedStatement statement1 = connection.prepareStatement("select count(username) from user_details where username = ?");
             statement1.setString(1, getUsername());
             ResultSet rs1 = statement1.executeQuery();
@@ -109,18 +97,19 @@ public class User extends Person{
                 }
                 return false;
             } else {
-                String[] data = new String[7];
-                data[0] = getUsername();
-                data[1] = getEmail();
-                data[2] = getPassword();
-                data[3] = getGender();
-                data[4] = getCategory();
-                data[5] = Integer.toString(getGeneralRank());
-                data[6] = Integer.toString(getCategoryRank());
-                CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_register.csv", data);
-                CSVFileHandle.addCSVtoDatabase("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_register.csv", connection);
-                System.out.println("You have Registered Successfully.");
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into user_details values (?,?,?,?,?,?,?)");
 
+                preparedStatement.setString(1, getUsername());
+                preparedStatement.setString(2, getEmail());
+                preparedStatement.setString(3, getPassword());
+                preparedStatement.setString(4, getGender());
+                preparedStatement.setString(5, getCategory());
+                preparedStatement.setInt(6, getGeneralRank());
+                preparedStatement.setInt(7, getCategoryRank());
+
+                preparedStatement.execute();
+
+                System.out.println("You have Registered Successfully.");
                 return true;
             }
         } catch (Exception e) {
@@ -164,107 +153,48 @@ public class User extends Person{
             return false;
         }
     }
-
-    public void UpdateUserData(Connection connection) {
-
-        CSVFileHandle.UpdateCategoryData_CSVtoDatabase(
-            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategory.csv",
-            connection
-        );
-        CSVFileHandle.UpdateGenderData_CSVtoDatabase(
-            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGender.csv",
-            connection
-        );
-        CSVFileHandle.UpdateGeneralRankData_CSVtoDatabase(
-            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGeneralRank.csv",
-            connection
-        );
-        CSVFileHandle.UpdateCategoryRankData_CSVtoDatabase(
-            "C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategoryRank.csv",
-            connection
-        );
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement("select * from user_details where username = ? and email = ?");
-            stmt.setString(1, this.getUsername());
-            stmt.setString(2, this.getEmail());
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<User> UserList = new ArrayList<>();
-            while (rs.next()) {
-                User user = new User(
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(5),
-                    rs.getString(4),
-                    rs.getInt(6),
-                    rs.getInt(7)
-                );
-                UserList.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
     
     public boolean UpdateUserDetails(Connection connection, int select, String str) {
 
         try{
             switch (select) {
                 case 1 -> {
-                    // System.out.println("Enter New Gender");
-                    // str = sc.next();
                     String[] data =new String[3];
                     data[0]=getUsername();
                     data[1]=getEmail();
                     data[2]=str;
                     this.setGender(str);
-                    
-                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGender.csv", data);
 
-                    UpdateUserData(connection);
                     return true;
                 }
 
                 case 2 -> {
-                    // System.out.println("Enter New Category");
-                    // str = sc.next();
                     String[] data =new String[3];
                     data[0]=getUsername();
                     data[1]=getEmail();
                     data[2]=str;
                     setCategory(str);
-                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategory.csv", data);
 
-                    UpdateUserData(connection);
                     return true;
                 }
 
                 case 3 -> {
-                    // System.out.println("Enter New GeneralRank");
-                    // rank = sc.nextInt();
                     String[] data =new String[3];
                     data[0]=getUsername();
                     data[1]=getEmail();
                     data[2]=str;
                     setGeneralRank(Integer.parseInt(str));
-                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedGeneralRank.csv", data);
-                    
-                    UpdateUserData(connection);
+
                     return true;
                 }
 
                 case 4 -> {
-                    // System.out.println("Enter New CategoryRank");
-                    // rank = sc.nextInt();
                     String[] data =new String[3];
                     data[0]=getUsername();
                     data[1]=getEmail();
                     data[2]=str;
                     setCategoryRank(Integer.parseInt(str));
-                    CSVFileHandle.WritelineIntoCSV("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_updatedCategoryRank.csv", data);
-                    
-                    UpdateUserData(connection);
+
                     return true;
                 }
             }
@@ -319,16 +249,6 @@ public class User extends Person{
             if (ct != 0) {
                 checkStatus = true;
                 System.out.println("Account Deleted");
-                String[] data =new String[7];
-                data[0]=getUsername();
-                data[1]=getEmail();
-                data[2]=getPassword();
-                data[3]=getGender();
-                data[4]=getCategory();
-                data[5]=Integer.toString(getGeneralRank());
-                data[6]=Integer.toString(getCategoryRank());
-
-                CSVFileHandle.WriteLineIntoCSVForDeletion("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_deleted.csv", data);
             }
             else {
                 System.out.println("Can't Delete Account");

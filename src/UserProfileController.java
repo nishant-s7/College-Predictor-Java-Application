@@ -91,9 +91,7 @@ public class UserProfileController implements Initializable{
         }
 
         UserEditDetailsController userEditDetailsController = loader.getController();
-        System.out.println(getDb());
         userEditDetailsController.setDb(db);
-        System.out.println(userEditDetailsController.getDb());
         userEditDetailsController.setUser(user);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

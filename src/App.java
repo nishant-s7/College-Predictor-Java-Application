@@ -37,7 +37,7 @@ public class App extends Application {
         
         CoverController coverController = loader.getController();
         coverController.setDb(Db);
-        Admin.UploadAllJosaaRoundCutoff(Db);
+        // Admin.UploadAllJosaaRoundCutoff(Db);
         
         Scene scene = new Scene(root);
         primaryStage.setTitle("College Predictor");
