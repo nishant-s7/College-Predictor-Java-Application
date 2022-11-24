@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -36,6 +37,10 @@ public class App extends Application {
         
         CoverController coverController = loader.getController();
         coverController.setDb(Db);
+
+        Image image = new Image("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\icon cp.png");
+
+        primaryStage.getIcons().add(image);
         
         Scene scene = new Scene(root);
         primaryStage.setTitle("College Predictor");
