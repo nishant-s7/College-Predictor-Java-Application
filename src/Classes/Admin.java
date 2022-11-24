@@ -257,18 +257,6 @@ public class Admin extends Person{
         }
         return UserList;
     }
-
-    public void UploadDeletedUserCSV(Connection connection){
-        
-        try{
-            CSVFileHandle.addUser_deletedCsvToDatabasesUser_deleted("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_deleted.csv", connection);
-
-            CSVFileHandle.DeleteCSVFIle("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\src\\CSV\\user_deleted.csv");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
     
     public static void UploadAllJosaaRoundCutoff(Connection connection) {
 

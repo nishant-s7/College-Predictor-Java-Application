@@ -1,215 +1,227 @@
 package CSV;
 
-import com.opencsv.CSVWriter;
+// import com.opencsv.CSVWriter;
 import Classes.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
+// import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class CSVFileHandle {
 
-    static public void WriteLineIntoCSVForDeletion(String filepath, String[] data) {
+    // static public void WriteLineIntoCSVForDeletion(String filepath, String[] data) {
         
-        File file = new File(filepath);
+    //     File file = new File(filepath);
         
-        try {
+    //     try {
             
-            FileWriter outputfile = new FileWriter(file, true);
-            CSVWriter writer = new CSVWriter(outputfile, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
-            writer.writeNext(data);
+    //         FileWriter outputfile = new FileWriter(file, true);
+    //         CSVWriter writer = new CSVWriter(outputfile, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+    //         writer.writeNext(data);
             
-            writer.close();
-        } catch (Exception e) {
-            System.out.println("Application error : File handling problem.");
-        }
-    }
+    //         writer.close();
+    //     } catch (Exception e) {
+    //         System.out.println("Application error : File handling problem.");
+    //     }
+    // }
 
-    static public void WritelineIntoCSV(String filepath, String[] data) {
+    // static public void WritelineIntoCSV(String filepath, String[] data) {
         
-        File file = new File(filepath);
+    //     File file = new File(filepath);
         
-        try {
-            FileWriter outputfile = new FileWriter(file, false);
-            CSVWriter writer = new CSVWriter(outputfile, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
-            writer.writeNext(data);
+    //     try {
+    //         FileWriter outputfile = new FileWriter(file, false);
+    //         CSVWriter writer = new CSVWriter(outputfile, ',', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+    //         writer.writeNext(data);
             
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    //         writer.close();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    static public void addCSVtoDatabase(String filepath, Connection connection) {
-        try {
-            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
-            String lineText;
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into user_details values (?,?,?,?,?,?,?)");
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String name = data[0];
-                String email = data[1];
-                String pass = data[2];
-                String gender = data[3];
-                String category = data[4];
-                String generalRank = data[5];
-                String categoryRank = data[6];
+    // static public void addCSVtoDatabase(String filepath, Connection connection) {
+    //     try {
+    //         BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+    //         String lineText;
+    //         PreparedStatement preparedStatement = connection.prepareStatement("insert into user_details values (?,?,?,?,?,?,?)");
+    //         while ((lineText = lineReader.readLine()) != null) {
+    //             String[] data = lineText.split(",");
+    //             String name = data[0];
+    //             String email = data[1];
+    //             String pass = data[2];
+    //             String gender = data[3];
+    //             String category = data[4];
+    //             String generalRank = data[5];
+    //             String categoryRank = data[6];
                 
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, email);
-                preparedStatement.setString(3, pass);
-                preparedStatement.setString(4, gender);
-                preparedStatement.setString(5, category);
-                preparedStatement.setInt(6, Integer.parseInt(generalRank));
-                preparedStatement.setInt(7, Integer.parseInt(categoryRank));
-                preparedStatement.addBatch();
-            }
+    //             preparedStatement.setString(1, name);
+    //             preparedStatement.setString(2, email);
+    //             preparedStatement.setString(3, pass);
+    //             preparedStatement.setString(4, gender);
+    //             preparedStatement.setString(5, category);
+    //             preparedStatement.setInt(6, Integer.parseInt(generalRank));
+    //             preparedStatement.setInt(7, Integer.parseInt(categoryRank));
+    //             preparedStatement.addBatch();
+    //         }
             
-            lineReader.close();
-            preparedStatement.executeBatch();
-            System.out.println("User data uploaded");
+    //         lineReader.close();
+    //         preparedStatement.executeBatch();
+    //         System.out.println("User data uploaded");
             
-        } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
-        }
-    }
+    //     } catch (Exception e) {
+    //         System.out.println("Application error : Database connectivity problem.");
+    //     }
+    // }
     
-    static public void addUser_deletedCsvToDatabasesUser_deleted(String filepath, Connection connection) {
-        try {
-            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
-            String lineText;
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into user_deleted values (?,?,?,?,?,?,?)");
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String name = data[0];
-                String email = data[1];
-                String pass = data[2];
-                String gender = data[3];
-                String category = data[4];
-                String generalRank = data[5];
-                String categoryRank = data[6];
+    // static public void addUser_deletedCsvToDatabasesUser_deleted(String filepath, Connection connection) {
+    //     try {
+    //         BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+    //         String lineText;
+    //         PreparedStatement preparedStatement = connection.prepareStatement("insert into user_deleted values (?,?,?,?,?,?,?)");
+    //         while ((lineText = lineReader.readLine()) != null) {
+    //             String[] data = lineText.split(",");
+    //             String name = data[0];
+    //             String email = data[1];
+    //             String pass = data[2];
+    //             String gender = data[3];
+    //             String category = data[4];
+    //             String generalRank = data[5];
+    //             String categoryRank = data[6];
                 
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, email);
-                preparedStatement.setString(3, pass);
-                preparedStatement.setString(4, gender);
-                preparedStatement.setString(5, category);
-                preparedStatement.setInt(6, Integer.parseInt(generalRank));
-                preparedStatement.setInt(7, Integer.parseInt(categoryRank));
-                preparedStatement.addBatch();
-            }
+    //             preparedStatement.setString(1, name);
+    //             preparedStatement.setString(2, email);
+    //             preparedStatement.setString(3, pass);
+    //             preparedStatement.setString(4, gender);
+    //             preparedStatement.setString(5, category);
+    //             preparedStatement.setInt(6, Integer.parseInt(generalRank));
+    //             preparedStatement.setInt(7, Integer.parseInt(categoryRank));
+    //             preparedStatement.addBatch();
+    //         }
             
-            lineReader.close();
-            preparedStatement.executeBatch();
-            System.out.println("Deleted User data uploaded to User_deleted table");
+    //         lineReader.close();
+    //         preparedStatement.executeBatch();
+    //         System.out.println("Deleted User data uploaded to User_deleted table");
             
             
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    static public void UpdateCategoryData_CSVtoDatabase(String filepath, Connection connection) {
-        try {
-            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
-            String lineText;
-            PreparedStatement preparedStatement = connection.prepareStatement("update user_details set Category = ? where username=? and email=?");
+    // static public void UpdateCategoryData_CSVtoDatabase(String filepath, Connection connection) {
+    //     try {
+    //         BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+    //         String lineText;
+    //         PreparedStatement preparedStatement = connection.prepareStatement("update user_details set Category = ? where username=? and email=?");
             
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String name = data[0];
-                String email = data[1];
-                String value = data[2];
-                preparedStatement.setString(1, value);
-                preparedStatement.setString(2, name);
-                preparedStatement.setString(3, email);
-                preparedStatement.addBatch();
-            }
-            lineReader.close();
-            preparedStatement.executeBatch();
-        } catch (Exception e) {
-            System.out.println("caught");
-            e.printStackTrace();
-        }
-    }
+    //         while ((lineText = lineReader.readLine()) != null) {
+    //             String[] data = lineText.split(",");
+    //             String name = data[0];
+    //             String email = data[1];
+    //             String value = data[2];
+    //             preparedStatement.setString(1, value);
+    //             preparedStatement.setString(2, name);
+    //             preparedStatement.setString(3, email);
+    //             preparedStatement.addBatch();
+    //         }
+    //         lineReader.close();
+    //         preparedStatement.executeBatch();
+    //     } catch (Exception e) {
+    //         System.out.println("caught");
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    static public void UpdateGenderData_CSVtoDatabase(String filepath, Connection connection) {
-        try {
-            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
-            String lineText;
-            PreparedStatement preparedStatement = connection.prepareStatement("update user_details set gender = ? where username=? and email=?");
+    // static public void UpdateGenderData_CSVtoDatabase(String filepath, Connection connection) {
+    //     try {
+    //         BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+    //         String lineText;
+    //         PreparedStatement preparedStatement = connection.prepareStatement("update user_details set gender = ? where username=? and email=?");
             
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String name = data[0];
-                String email = data[1];
-                String value = data[2];
-                preparedStatement.setString(1, value);
-                preparedStatement.setString(2, name);
-                preparedStatement.setString(3, email);
-                preparedStatement.addBatch();
-            }
-            lineReader.close();
-            preparedStatement.executeBatch();
-        } catch (Exception e) {
-            System.out.println("caught");
-            e.printStackTrace();
-        }
-    }
+    //         while ((lineText = lineReader.readLine()) != null) {
+    //             String[] data = lineText.split(",");
+    //             String name = data[0];
+    //             String email = data[1];
+    //             String value = data[2];
+    //             preparedStatement.setString(1, value);
+    //             preparedStatement.setString(2, name);
+    //             preparedStatement.setString(3, email);
+    //             preparedStatement.addBatch();
+    //         }
+    //         lineReader.close();
+    //         preparedStatement.executeBatch();
+    //     } catch (Exception e) {
+    //         System.out.println("caught");
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    static public void UpdateGeneralRankData_CSVtoDatabase(String filepath, Connection connection) {
-        try {
-            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
-            String lineText;
-            PreparedStatement preparedStatement = connection.prepareStatement("update user_details set generalRank = ? where username=? and email=?");
+    // static public void UpdateGeneralRankData_CSVtoDatabase(String filepath, Connection connection) {
+    //     try {
+    //         BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+    //         String lineText;
+    //         PreparedStatement preparedStatement = connection.prepareStatement("update user_details set generalRank = ? where username=? and email=?");
             
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String name = data[0];
-                String email = data[1];
-                String value = data[2];
-                preparedStatement.setString(1, value);
-                preparedStatement.setString(2, name);
-                preparedStatement.setString(3, email);
-                preparedStatement.addBatch();
-            }
-            lineReader.close();
-            preparedStatement.executeBatch();
-        } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
-            System.out.println(e);
-        }
-    }
+    //         while ((lineText = lineReader.readLine()) != null) {
+    //             String[] data = lineText.split(",");
+    //             String name = data[0];
+    //             String email = data[1];
+    //             String value = data[2];
+    //             preparedStatement.setString(1, value);
+    //             preparedStatement.setString(2, name);
+    //             preparedStatement.setString(3, email);
+    //             preparedStatement.addBatch();
+    //         }
+    //         lineReader.close();
+    //         preparedStatement.executeBatch();
+    //     } catch (Exception e) {
+    //         System.out.println("Application error : Database connectivity problem.");
+    //         System.out.println(e);
+    //     }
+    // }
 
-    static public void UpdateCategoryRankData_CSVtoDatabase(String filepath, Connection connection) {
-        try {
-            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
-            String lineText;
-            PreparedStatement preparedStatement = connection.prepareStatement("update user_details set categoryRank = ? where username=? and email=?");
+    // static public void UpdateCategoryRankData_CSVtoDatabase(String filepath, Connection connection) {
+    //     try {
+    //         BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+    //         String lineText;
+    //         PreparedStatement preparedStatement = connection.prepareStatement("update user_details set categoryRank = ? where username=? and email=?");
             
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String name = data[0];
-                String email = data[1];
-                String value = data[2];
-                preparedStatement.setString(1, value);
-                preparedStatement.setString(2, name);
-                preparedStatement.setString(3, email);
-                preparedStatement.addBatch();
-            }
-            lineReader.close();
-            preparedStatement.executeBatch();
-        } catch (Exception e) {
-            System.out.println("Application error : Database connectivity problem.");
-            System.out.println(e);
-        }
-    }
+    //         while ((lineText = lineReader.readLine()) != null) {
+    //             String[] data = lineText.split(",");
+    //             String name = data[0];
+    //             String email = data[1];
+    //             String value = data[2];
+    //             preparedStatement.setString(1, value);
+    //             preparedStatement.setString(2, name);
+    //             preparedStatement.setString(3, email);
+    //             preparedStatement.addBatch();
+    //         }
+    //         lineReader.close();
+    //         preparedStatement.executeBatch();
+    //     } catch (Exception e) {
+    //         System.out.println("Application error : Database connectivity problem.");
+    //         System.out.println(e);
+    //     }
+    // }
     
+    // static public void DeleteCSVFIle(String filepath) {
+    //     try {
+    //         File f = new File(filepath);
+    //         if (f.delete())
+    //         {
+    //             System.out.println(f.getName() + " deleted after execution.");
+    //         } else {
+    //             System.out.println("failed");
+    //         }
+    //     } catch (Exception e) {
+    //         System.out.println("Application error : File handling problem.");
+    //     }
+    // }
     
     static public void UploadJosaaRoundCutoffToDatabase(String filepath, Connection connection, int round) {
         try {
@@ -245,21 +257,6 @@ public class CSVFileHandle {
             
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    
-    
-    static public void DeleteCSVFIle(String filepath) {
-        try {
-            File f = new File(filepath);
-            if (f.delete())
-            {
-                System.out.println(f.getName() + " deleted after execution.");
-            } else {
-                System.out.println("failed");
-            }
-        } catch (Exception e) {
-            System.out.println("Application error : File handling problem.");
         }
     }
 

@@ -127,6 +127,7 @@ public class InstituteCSVUpdationController implements Initializable{
     void btnUpdate(MouseEvent event) {
 
         collegeList = getAdmin().BulkUpdateCutoffThroughCSV(tfCsvFilename.getText(), getDb(), Integer.parseInt(tfRound.getText()));
+        tableView.getItems().addAll(collegeList);
 
     }
 
