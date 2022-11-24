@@ -47,7 +47,7 @@ public class UserRegisterController implements Initializable{
     
     @FXML
     private ComboBox<String> comboboxGender;
-    private final ObservableList<String> genderOptions = FXCollections.observableArrayList("Male", "Female (including supernumerary)");
+    private final ObservableList<String> genderOptions = FXCollections.observableArrayList("Gender-Neutral", "Female (including supernumerary)");
 
     @FXML
     private TextField registerGeneralRank;
