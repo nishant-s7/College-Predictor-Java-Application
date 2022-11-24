@@ -38,7 +38,7 @@ public class IncognitoPageController implements Initializable{
 
     @FXML
     private ComboBox<String> comboboxBranch;
-    private ObservableList<String> branchOptions = FXCollections.observableArrayList("ALL");
+    private ObservableList<String> branchOptions = FXCollections.observableArrayList();
     
     @FXML
     private ComboBox<String> comboboxCategory;
@@ -50,7 +50,7 @@ public class IncognitoPageController implements Initializable{
     
     @FXML
     private ComboBox<String> comboboxInstitute;
-    private ObservableList<String> instituteOptions = FXCollections.observableArrayList("ALL");
+    private ObservableList<String> instituteOptions = FXCollections.observableArrayList();
     
     @FXML
     private ComboBox<Integer> comboboxRound;
@@ -110,13 +110,15 @@ public class IncognitoPageController implements Initializable{
     public void loadBranches() {
 
         branchOptions = new Institute().getAllBranch(getDb());
+        comboboxBranch.getItems().add("ALL");
         comboboxBranch.getItems().addAll(branchOptions);
-
+        
     }
-
+    
     public void loadInstitutes() {
-
+        
         instituteOptions = new Institute().getAllInstitute(getDb());
+        comboboxInstitute.getItems().add("ALL");
         comboboxInstitute.getItems().addAll(instituteOptions);
 
     }

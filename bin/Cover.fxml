@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,6 +29,5 @@
             <Font name="Sitka Text" size="45.0" />
          </font>
       </Label>
-      <Hyperlink layoutX="254.0" layoutY="374.0" onAction="#hyperlinkLoadDatabasesClicked" text="Load Databases" textFill="#20c43e" />
    </children>
 </AnchorPane>

@@ -212,4 +212,10 @@ public class AdminMainPageController {
 
     }
 
+    @FXML
+    void hyperlinkLoadDatabasesClicked(ActionEvent event) {
+        Admin.UploadAllJosaaRoundCutoff(getDb());
+        System.out.println("Loaded all databases.");
+    }
+
 }
