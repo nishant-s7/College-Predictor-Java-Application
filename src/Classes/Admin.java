@@ -329,4 +329,10 @@ public class Admin extends Person{
 
     }
 
+    public ObservableList<Institute> BulkUpdateCutoffThroughCSV(String filepath, Connection connection, int roundUp) {
+
+        return CSVFileHandle.bulkUpdation(filepath, connection, roundUp);
+
+    }
+
 }

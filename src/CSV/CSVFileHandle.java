@@ -1,6 +1,9 @@
 package CSV;
 
 import com.opencsv.CSVWriter;
+import Classes.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -259,5 +262,51 @@ public class CSVFileHandle {
             System.out.println("Application error : File handling problem.");
         }
     }
-    
+
+    static public ObservableList<Institute> bulkUpdation(String filepath, Connection connection, int round){
+
+        ObservableList<Institute> updatedInstitute = FXCollections.observableArrayList();
+        try{
+            BufferedReader lineReader = new BufferedReader(new FileReader(filepath));
+            String lineText;
+            String roundNo = "round".concat(Integer.toString(round));
+            lineReader.readLine();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("update " + roundNo + " SET Opening_Rank=?, Closing_Rank=? where Institute= ? and Program= ? and Quota=? and Category= ? and Gender= ? ");
+            while ((lineText = lineReader.readLine()) != null) {
+                String[] data = lineText.split(",");
+                String Institute = data[0];
+                String Program = data[1];
+                String quota = data[2];
+                String category = data[3];
+                String gender = data[4];
+                String Opening_Rank = data[5];
+                String Closing_Rank = data[6];
+
+                preparedStatement.setString(1, Opening_Rank);
+                preparedStatement.setString(2, Closing_Rank);
+                preparedStatement.setString(3, Institute);
+                preparedStatement.setString(4, Program);
+                preparedStatement.setString(5, quota);
+                preparedStatement.setString(6, category);
+                preparedStatement.setString(7, gender);
+
+                if(preparedStatement.executeUpdate() == 1)
+                {
+                    Institute inst = new Institute(1,Institute,Program,quota,category,gender,Integer.parseInt(Opening_Rank),Integer.parseInt(Closing_Rank));
+                    updatedInstitute.add(inst);
+                }
+            }
+
+            lineReader.close();
+            return updatedInstitute;
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return updatedInstitute;
+        }
+
+    }
+
 }

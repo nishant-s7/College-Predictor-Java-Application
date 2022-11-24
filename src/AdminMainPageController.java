@@ -193,7 +193,22 @@ public class AdminMainPageController {
     @FXML
     void btnUpdateInstitutesClicked(ActionEvent event) {
 
-        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstituteCSVUpdation.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.err.print("Error in " + this.getClass().getName() + " : ");
+            System.err.println(e);
+        }
+
+        InstituteCSVUpdationController instituteCSVUpdationController = loader.getController();
+        instituteCSVUpdationController.setDb(db);
+        instituteCSVUpdationController.setAdmin(admin);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 

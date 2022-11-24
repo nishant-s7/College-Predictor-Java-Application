@@ -1,31 +1,33 @@
-import Classes.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
+import Classes.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 
-public class InstituteTableController implements Initializable{
+public class InstituteCSVUpdationController implements Initializable{
 
     private Scene scene;
     private Stage stage;
     private Parent root;
-    private User user;
+    private Admin admin;
     private Connection db;
 
     public void setDb(Connection db) {
@@ -36,12 +38,12 @@ public class InstituteTableController implements Initializable{
         return db;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 
-    public User getUser() {
-        return user;
+    public Admin getAdmin() {
+        return admin;
     }
 
     private ObservableList<Institute> collegeList = FXCollections.observableArrayList();
@@ -72,7 +74,7 @@ public class InstituteTableController implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
+
         instituteColumn.setCellValueFactory(new PropertyValueFactory<Institute, String>("InstituteName"));
         programColumn.setCellValueFactory(new PropertyValueFactory<Institute, String>("program"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<Institute, String>("Gender"));
@@ -115,17 +117,23 @@ public class InstituteTableController implements Initializable{
 
     }
 
-    public void loadInstitutesSimplePredict(SearchInstitute searchInstitute) {
+    @FXML
+    private TextField tfCsvFilename;
 
-        collegeList = searchInstitute.searchCollege(getDb());
-        tableView.getItems().addAll(collegeList);
+    @FXML
+    private TextField tfRound;
+
+    @FXML
+    void btnUpdate(MouseEvent event) {
+
+        collegeList = getAdmin().BulkUpdateCutoffThroughCSV(tfCsvFilename.getText(), getDb(), Integer.parseInt(tfRound.getText()));
 
     }
 
     @FXML
     void btnBackClicked(ActionEvent event) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("UserPagePredict.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPage.fxml"));
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -133,9 +141,9 @@ public class InstituteTableController implements Initializable{
             System.err.println(e);
         }
 
-        PredictMainPageController predictMainPageController = loader.getController();
-        predictMainPageController.setDb(db);
-        predictMainPageController.createSearchInstitute(user);
+        AdminMainPageController adminMainPageController = loader.getController();
+        adminMainPageController.setDb(db);
+        adminMainPageController.setAdmin(admin);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
