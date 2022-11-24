@@ -12,10 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class UserProfileController implements Initializable{
@@ -72,16 +69,6 @@ public class UserProfileController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
 
         userProfileListView.getItems().addAll(userDetails);
-
-        userProfileListView.setCellFactory(tc -> {
-            ListCell<String> cell = new ListCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(userProfileListView.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
 
     }
 
