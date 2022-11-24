@@ -42,11 +42,11 @@ public class IncognitoPageController implements Initializable{
     
     @FXML
     private ComboBox<String> comboboxCategory;
-    private final ObservableList<String> categoryOptions = FXCollections.observableArrayList("OPEN", "EWS", "OBC-NCL", "SC", "ST", "OPEN(PWD)", "EWS(PWD)", "OBC-NCL(PWD)", "SC(PWD)", "ST");
+    private final ObservableList<String> categoryOptions = FXCollections.observableArrayList("ALL", "OPEN", "EWS", "OBC-NCL", "SC", "ST", "OPEN(PWD)", "EWS(PWD)", "OBC-NCL(PWD)", "SC(PWD)", "ST");
     
     @FXML
     private ComboBox<String> comboboxGender;
-    private final ObservableList<String> genderOptions = FXCollections.observableArrayList("Male", "Female (including supernumerary)");
+    private final ObservableList<String> genderOptions = FXCollections.observableArrayList("Gender-Neutral", "Female (including supernumerary)");
     
     @FXML
     private ComboBox<String> comboboxInstitute;
@@ -80,6 +80,9 @@ public class IncognitoPageController implements Initializable{
         }
         if(comboboxInstitute.getValue() == "ALL") {
             searchInstitute.setInstituteName("");
+        }
+        if(comboboxCategory.getValue() == "ALL") {
+            searchInstitute.setCategory("");
         }
 
         IncognitoInstituteTableController instituteTableController = loader.getController();

@@ -132,6 +132,8 @@ public class IncognitoInstituteTableController implements Initializable{
         IncognitoPageController incognitoPageController = loader.getController();
         incognitoPageController.setDb(db);
         incognitoPageController.setUser(user);
+        incognitoPageController.loadInstitutes();
+        incognitoPageController.loadBranches();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
