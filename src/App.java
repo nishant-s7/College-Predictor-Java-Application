@@ -38,7 +38,7 @@ public class App extends Application {
         CoverController coverController = loader.getController();
         coverController.setDb(Db);
 
-        Image image = new Image("C:\\Users\\nisha\\OneDrive\\Documents\\IIITS\\OOP\\SLIDES\\Project\\OOP Project\\icon cp.png");
+        Image image = new Image("file:/C:/Users/nisha/OneDrive/Documents/IIITS/OOP/SLIDES/Project/OOP%20Project/icon%20cp.png");
 
         primaryStage.getIcons().add(image);
         
